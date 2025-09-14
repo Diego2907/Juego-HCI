@@ -1,60 +1,24 @@
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
+let palabra = "";
 if (!SpeechRecognition) {
     alert('Este navegador no soporta reconocimiento de voz.');
 } 
 
 const voz = new SpeechRecognition();
     voz.lang = "es-MX";
-    voz.continuous = false; // importante: false para que corte después de cada palabra
+    voz.continuous = false; 
     voz.interimResults = false;
 
-const palabraDiv = document.getElementById("palabra");
-const jugador = document.getElementById("jugador");
-
-let x = 180, y = 180;
-const paso = 20;
-
-function actualizarPosicion() {
-    jugador.style.left = x + "px";
-    jugador.style.top = y + "px";
-}
 
 voz.onresult = (event) => {
-    const palabra = event.results[0][0].transcript.trim().toLowerCase();
-                console.log("Palabra reconocida:", palabra);
-                palabraDiv.textContent = palabra;
-
-                if (palabra === "iniciar") {
-                    jugador.style.display = "block";
-                    x = 180; y = 180;
-                    actualizarPosicion();
-                }
-                if (palabra === "detener") {
-                    jugador.style.display = "none";
-                }
-                if (palabra === "izquierda") {
-                    x = Math.max(0, x - paso);
-                    actualizarPosicion();
-                }
-                if (palabra === "derecha") {
-                    x = Math.min(360, x + paso);
-                    actualizarPosicion();
-                }
-                if (palabra === "arriba") {
-                    y = Math.max(0, y - paso);
-                    actualizarPosicion();
-                }
-                if (palabra === "abajo") {
-                    y = Math.min(360, y + paso);
-                    actualizarPosicion();
-                }
-            };
+    palabra= event.results[0][0].transcript.trim().toLowerCase();
+    console.log("Palabra reconocida:", palabra);
+ };
 
 voz.onend = () => {
-                // reinicia siempre que quieras que siga escuchando
-                if (autoEscucha) voz.start();
-            };
+// reinicia siempre que quieras que siga escuchando
+    if (autoEscucha) voz.start();
+};
 
 let autoEscucha = false;
 
@@ -68,30 +32,4 @@ document.getElementById("StopBtn").addEventListener("click", () => {
                 voz.stop();
 });
 
-const izquierda = window.addEventListener("keydown", () => {
-    if (event.key === "ArrowLeft") {
-        x = Math.max(0, x - paso);
-        actualizarPosicion();
-    }
-});
-
-const derecha = window.addEventListener("keydown", () => {
-    if(event.key === "ArrowRight") {
-        x = Math.min(360, x + paso);
-        actualizarPosicion();
-    }
-});
-
-const arriba = window.addEventListener("keydown",  () => {
-    if(event.key === "ArrowUp") {
-        y = Math.max(0, y - paso);
-        actualizarPosicion();
-    }
-});
-
-const abajo = window.addEventListener("keydown", () => {
-    if(event.key === "ArrowDown") {
-        y = Math.max(0, y + paso);
-        actualizarPosicion();
-    }
-});
+export { palabra };
