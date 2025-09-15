@@ -4,7 +4,7 @@ import { palabra } from './Control-de-voz.js';
 const config = {
   type: Phaser.AUTO,
   width: 800,  
-  height: 600,
+  height: 500,
   backgroundColor: '#775353ff',
   parent: 'pantalla',
   physics:{
@@ -18,6 +18,7 @@ new Phaser.Game(config);
 
 
 function preload() {
+    this.load.image('escenario1', 'Assets/Background/escenario principal terror.png' )
     this.load.spritesheet(
         'jugador',
         'Assets/Personaje principal/Personaje_caminando.png', 
@@ -27,6 +28,9 @@ function preload() {
     
 }
 function create() {
+  this.add.image(420, 261, "escenario1")
+    .setOrigin(0.5,0.5)
+    .setScale(1.5);
   this.jugador = this.physics.add.sprite(400, 300, 'jugador')
     .setOrigin(0, 1)
     .setCollideWorldBounds(true)
@@ -99,5 +103,8 @@ function update() {
   else if(this.keys.down.isDown || palabra === "abajo") {
     this.jugador.anims.play('jugador-camina-abajo', true);
     this.jugador.y += 5;
+  } else {
+    this.jugador.anims.stop();
+    this.jugador.setFrame(0);
   }
 }
