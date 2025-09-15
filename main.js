@@ -15,44 +15,89 @@ const config = {
 new Phaser.Game(config);
 
 
-let jugador;
-let keys;
 
 
 function preload() {
     this.load.spritesheet(
-        'jugador1',
+        'jugador',
         'Assets/Personaje principal/Personaje_caminando.png', 
         { frameWidth: 64, frameHeight: 64 }
     )
 
-    this.anims.create({
-        key: 'jugador-camina-abajo',
-        frames: this.anims.generateFrameNumbers(
-          'jugador1', 
-          { start: 0, end: 9 }
-        ),
-        repeat: -1
-    });
+    
 }
 function create() {
-  jugador = this.physics.add.sprite(400, 300, 'jugador1')
+  this.jugador = this.physics.add.sprite(400, 300, 'jugador')
     .setOrigin(0, 1)
     .setCollideWorldBounds(true)
     .setScale(2.5)
   ;
-  keys = this.input.keyboard.createCursorKeys();
+  this.anims.create({
+        key: 'jugador-camina-abajo',
+        frames: this.anims.generateFrameNumbers(
+          'jugador', 
+          { start: 0, end: 5 }
+        ),
+        frameRate: 17 ,
+        repeat: 1
+    });
+
+    this.anims.create({
+        key: 'jugador-camina-izquierda',
+        frames: this.anims.generateFrameNumbers(
+          'jugador', 
+          { start: 6, end: 11 }
+        ),
+        frameRate: 17 ,
+        repeat: 1
+    });
+
+    this.anims.create({
+        key: 'jugador-camina-derecha',
+        frames: this.anims.generateFrameNumbers(
+          'jugador', 
+          { start: 12, end: 17 }
+        ),
+        frameRate: 17 ,
+        repeat: 1
+    });
+
+    this.anims.create({
+        key: 'jugador-camina-izquierda',
+        frames: this.anims.generateFrameNumbers(
+          'jugador', 
+          { start: 18, end: 23}
+        ),
+        frameRate: 17 ,
+        repeat: 1
+    });
+
+    this.anims.create({
+        key: 'jugador-camina-arriba',
+        frames: this.anims.generateFrameNumbers(
+          'jugador', 
+          { start: 18, end: 23}
+        ),
+        frameRate: 17 ,
+        repeat: 1
+    });
+
+
+  this.keys = this.input.keyboard.createCursorKeys();
 }
 function update() {
-  if(keys.left.isDown || palabra === "izquierda") {
-    jugador.x -= 5;
-  }else if(keys.right.isDown || palabra === "derecha") {
-    jugador.x += 5;
-  }else if(keys.up.isDown || palabra === "arriba") {
-    // jugador.anims.play('jugador-camina-abajo', true);
-    jugador.y -= 5;
+  if(this.keys.left.isDown || palabra === "izquierda") {
+    this.jugador.anims.play('jugador-camina-izquierda', true);
+    this.jugador.x -= 5;
+  }else if(this.keys.right.isDown || palabra === "derecha") {
+    this.jugador.anims.play('jugador-camina-derecha', true);
+    this.jugador.x += 5;
+  }else if(this.keys.up.isDown || palabra === "arriba" ) {
+    this.jugador.anims.play('jugador-camina-arriba', true);
+    this.jugador.y -= 5;
   }
-  else if(keys.down.isDown || palabra === "abajo") {
-    jugador.y += 5;
+  else if(this.keys.down.isDown || palabra === "abajo") {
+    this.jugador.anims.play('jugador-camina-abajo', true);
+    this.jugador.y += 5;
   }
 }
