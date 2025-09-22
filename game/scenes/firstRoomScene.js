@@ -108,6 +108,11 @@ export class FirstRoomScene extends Phaser.Scene {
         } else {
             this.jugador.anims.stop();
             this.jugador.setFrame(0);
+            if (palabra==='para'){
+            this.jugador.anims.stop();
+            this.jugador.setFrame(0);
         }
+        }
+         
     }
 }
