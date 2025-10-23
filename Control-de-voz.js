@@ -88,3 +88,5 @@ document.getElementById("StopBtn").addEventListener("click", () => {
 });
 
 export { getPalabra };
+/*PROBANDO SI ESTO ES UN PR*/
+
