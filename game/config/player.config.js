@@ -28,8 +28,8 @@ export const playerConfig = {
             repeat: 1
         },
         'jugador-camina-izquierda': {
-            start: 18,
-            end: 23,
+            start: 6,
+            end: 11,
             frameRate: 17,
             repeat: 1
         },
@@ -44,7 +44,7 @@ export const playerConfig = {
         key: 'pasosJugador',
         path: '../Assets/sounds/pisadas.mp3',
         config: {
-            volume: 0.05,
+            volume: 0.025,
             loop: false,
             rate: 2
         }
