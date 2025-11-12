@@ -1,4 +1,4 @@
-import { palabra } from '../../Control-de-voz.js';
+import { getPalabra } from '../../Control-de-voz.js';
 import { firstRoomConfig } from '../config/firstRoomScene.config.js';
 import { playerConfig } from '../config/player.config.js';
 
@@ -81,25 +81,25 @@ export class FirstRoomScene extends Phaser.Scene {
     }
 
     update() {
-        if (this.keys.left.isDown || palabra === "izquierda") {
+        if (this.keys.left.isDown || getPalabra === "izquierda") {
             this.jugador.anims.play('jugador-camina-izquierda', true);
             this.jugador.x -= playerConfig.speed;
             if (!this.sonidoPasos.isPlaying) {
                 this.sonidoPasos.play();
             }
-        } else if (this.keys.right.isDown || palabra === "derecha") {
+        } else if (this.keys.right.isDown || getPalabra === "derecha") {
             this.jugador.anims.play('jugador-camina-derecha', true);
             this.jugador.x += playerConfig.speed;
             if (!this.sonidoPasos.isPlaying) {
                 this.sonidoPasos.play();
             }
-        } else if (this.keys.up.isDown || palabra === "arriba") {
+        } else if (this.keys.up.isDown || getPalabra === "arriba") {
             this.jugador.anims.play('jugador-camina-arriba', true);
             this.jugador.y -= playerConfig.speed;
             if (!this.sonidoPasos.isPlaying) {
                 this.sonidoPasos.play();
             }
-        } else if (this.keys.down.isDown || palabra === "abajo") {
+        } else if (this.keys.down.isDown || getPalabra === "abajo") {
             this.jugador.anims.play('jugador-camina-abajo', true);
             this.jugador.y += playerConfig.speed;
             if (!this.sonidoPasos.isPlaying) {
@@ -108,7 +108,7 @@ export class FirstRoomScene extends Phaser.Scene {
         } else {
             this.jugador.anims.stop();
             this.jugador.setFrame(0);
-            if (palabra==='para'){
+            if (getPalabra==='para'){
             this.jugador.anims.stop();
             this.jugador.setFrame(0);
         }
